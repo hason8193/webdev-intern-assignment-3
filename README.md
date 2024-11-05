@@ -14,7 +14,7 @@ Web template example. Hope you will make it more beautiful !!!
 - The conversion of raw data into the database must be coded and located in this source code. (**hint**: recommend use migration and seeder)
 - Write a feature to check score from registration number input
 - Write a feature report. There will be 4 levels including: >=8 points, 8 points > && >=6 points, 6 points > && >= 4 points, < 4 points
-    - Statistics of the number of students with scores in the above 4 levels by subjects.
+    - Statistics of the number of students with scores in the above 4 levels by subjects. (Chart)
 - List top 10 students of group A including (math, physics, chemistry)
 ### Nice to have:
 
