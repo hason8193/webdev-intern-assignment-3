@@ -33,10 +33,10 @@ You can use any front-end library/framework like React, Angular, Vue, ... or jus
 - You can use some available interfaces such as: [AdminLTe](https://adminlte.io/), [TailAdmin](https://tailadmin.com/)...
   
 ### Backend: 
-Choose one of your applied back-end libraries/frameworks: Laravel(PHP), Ruby on Rail, NestJS (NodeJs), Django (Python), ... or a structure that you come up with yourselt. 
+Choose one of your applied back-end libraries/frameworks: Maybe Laravel(PHP), Ruby on Rails, NestJS (NodeJs), Django (Python), unlimited framework... or a structure that you come up with yourselt. 
 - **Mandatory** use of **OOP programming** for managing subjects.
 - Need form validation and logic tightening.
-- For Js, use TypeScript is a plus.
+- For NodeJs, use TypeScript is a plus.
 - Use ORM for interacting with Database.
 - Database: You can use postgreSQL, Mysql, mongoDB... to manage or cache the data. 
 
