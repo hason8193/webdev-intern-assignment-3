@@ -1,125 +1,65 @@
-# G-Scores - High School Exam Results System# G-Scores
+# G-Scores - High School Exam Results System
 
-[![Django](https://img.shields.io/badge/Django-4.2-green.svg)](https://www.djangoproject.com/)This is the instruction for web developer intern assignment at [Golden Owl](https://goldenowl.asia). You will build a simple web.
-
+[![Django](https://img.shields.io/badge/Django-4.2-green.svg)](https://www.djangoproject.com/)
 [![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
-
-[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple.svg)](https://getbootstrap.com/)Web template example. Hope you will make it more beautiful !!!
-
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple.svg)](https://getbootstrap.com/)
 [![Chart.js](https://img.shields.io/badge/Chart.js-4.0-orange.svg)](https://www.chartjs.org/)
 
-![template example](./screenshots/mockup-ui.png)
+A comprehensive web application for managing and displaying high school exam results for the 2024 academic year. This project demonstrates proficiency in Django development, database design, and modern web technologies.
 
-This is a comprehensive web application for managing and displaying high school exam results for the 2024 academic year. Built as part of the Golden Owl web developer intern assignment, it demonstrates proficiency in Django development, database design, and modern web technologies.# Requirements
+## ✨ Features
 
-1. From the raw data file ([diem_thi_thpt_2024.csv](./dataset/diem_thi_thpt_2024.csv)) save it into the database with the appropriate structure
+### Core Features ✅
 
-![G-Scores Demo](./screenshots/mockup-ui.png)
-
-2. Your application should have at least features in [Must have](#must-have), things in [Nice to have](#nice-to-have) is optional (but yeah, it's attractive if you have).
-
-## 🚀 Live Demo
-
-### Must have:
-
-[**Live Application**](http://your-deployment-url.com) (Replace with actual deployment URL)- The conversion of raw data into the database must be coded and located in this source code. (**hint**: recommend use migration and seeder)
-
-- Write a feature to check score from registration number input
-
-## ✨ Features- Write a feature report. There will be 4 levels including: >=8 points, 8 points > && >=6 points, 6 points > && >= 4 points, < 4 points
-
-    - Statistics of the number of students with scores in the above 4 levels by subjects. (Chart)
-
-### Must Have Features ✅- List top 10 students of group A including (math, physics, chemistry)
-
-- [x] **CSV Data Import**: Automated conversion of raw CSV data into database with proper structure### Nice to have:
-
+- [x] **CSV Data Import**: Automated conversion of raw CSV data into database with proper structure
 - [x] **Score Lookup**: Search student scores by registration number (SBD)
+- [x] **Score Reports**: 4-level classification system (≥8, 6-8, 4-6, <4 points)
+- [x] **Statistics Dashboard**: Visual charts showing score distribution by subjects
+- [x] **Top 10 Group A**: Ranking of best performers in Math, Physics, Chemistry combination
 
-- [x] **Score Reports**: 4-level classification system (≥8, 6-8, 4-6, <4 points)- Responsive design (look good on all devices: desktops, tablets & mobile phones).
-
-- [x] **Statistics Dashboard**: Visual charts showing score distribution by subjects- Setup project use Docker.
-
-- [x] **Top 10 Group A**: Ranking of best performers in Math, Physics, Chemistry combination- Deploy the application to go live.
-
-### Nice to Have Features ✅# Technical Requirements
+### Additional Features ✅
 
 - [x] **Responsive Design**: Optimized for desktop, tablet, and mobile devices
+- [x] **Interactive Charts**: Chart.js integration for data visualization
+- [x] **Modern UI**: Bootstrap 5 with custom styling and Google Fonts (Rubik)
+- [x] **Form Validation**: Comprehensive client and server-side validation
+- [x] **Security Features**: CSRF protection, input sanitization, secure headers
 
-- [x] **Docker Support**: Complete containerization for easy deployment### Frontend
+## 🏗️ Technical Architecture
 
-- [x] **Interactive Charts**: Chart.js integration for data visualizationYou can use any front-end library/framework like React, Angular, Vue, ... or just simple things with HTML + CSS + Javascript (JQuery).
+### Backend
 
-- [x] **Modern UI**: Bootstrap 5 with custom styling and Google Fonts (Rubik)- For JS intern use React you need to have:
-
-- [x] **Form Validation**: Comprehensive client and server-side validation \* React Hooks
-
-- [x] **Security Features**: CSRF protection, input sanitization, secure headers- Fonts (optional);
-
-  - [https://fonts.google.com/specimen/Rubik?query=Rubik](https://fonts.google.com/specimen/Rubik?query=Rubik)
-
-## 🏗️ Technical Architecture- You can use some available interfaces such as: [AdminLTe](https://adminlte.io/), [TailAdmin](https://tailadmin.com/)...
-
-### Backend### Backend:
-
-- **Framework**: Django 4.2 (Python 3.12)Choose one of your applied back-end libraries/frameworks: Maybe Laravel(PHP), Ruby on Rails, NestJS (NodeJs), Django (Python), unlimited framework... or a structure that you come up with yourselt.
-
-- **Database**: SQLite (development) / PostgreSQL (production)- **Mandatory** use of **OOP programming** for managing subjects.
-
-- **ORM**: Django ORM with optimized queries- Need form validation and logic tightening.
-
-- **Data Processing**: Pandas for CSV import- For NodeJs, use TypeScript is a plus.
-
-- **Web Server**: Gunicorn (production)- Use ORM for interacting with Database.
-
-- Database: You can use postgreSQL, Mysql, mongoDB... to manage or cache the data.
+- **Framework**: Django 4.2 (Python 3.12)
+- **Database**: SQLite (development) / PostgreSQL (production)
+- **ORM**: Django ORM with optimized queries
+- **Data Processing**: Pandas for CSV import
+- **Web Server**: Gunicorn (production)
 
 ### Frontend
 
-- **Framework**: Django Templates with Bootstrap 5### Deployment
-
-- **Styling**: Custom CSS with Bootstrap componentsSome providers allow free deployment for the trial version (note: Maybe some suppliers will update their policies and prices)
-
+- **Framework**: Django Templates with Bootstrap 5
+- **Styling**: Custom CSS with Bootstrap components
 - **JavaScript**: Vanilla JS with Chart.js for visualizations
+- **Fonts**: Google Fonts (Rubik family)
+- **Icons**: Font Awesome 6
 
-- **Fonts**: Google Fonts (Rubik family)- Heroku - https://heroku.com - Deploying Front & Backend
-
-- **Icons**: Font Awesome 6- Vercel (Zeit) - https://vercel.com - Deploying Front & Backend apps at free of cost
-
-- Fly - https://fly.io - Deploying Front & Backend apps at free of cost
-
-### DevOps- Deta - https://deta.sh - Deploying Node.js and Python apps and APIs. They support most web frameworks like Express, Koa, Flask, and FastAPI. They also provide a very fast and powerful NoSQL database for free.
-
-- **Containerization**: Docker with multi-stage builds- Heliohost - https://heliohost.org - PHP, Ruby on rails, perl, django, java(jsp)
-
-- **Web Server**: Nginx (reverse proxy)- `...`
-
-- **Database**: PostgreSQL (containerized)# Submission
+### DevOps
 
 - **Static Files**: Whitenoise for Django static file serving
 
-After completing the assignment, please push the source code to remote repository (github/gitlab), then send us the link to your repository.
-
 ## 📊 Database Schema
-
-Don't forget to add `README.md` which includes guide to run your project locally and demo link.
 
 ### Models Overview
 
 - **Student**: Core model storing exam results for each student
-
-- **Subject**: Subject definitions with OOP-based classification methods**GOOD LUCK!!!**
-
+- **Subject**: Subject definitions with OOP-based classification methods
 - **ForeignLanguage**: Foreign language codes and names
+- **ScoreStatistics**: Cached statistics for performance optimization
 
-- **ScoreStatistics**: Cached statistics for performance optimization![Your Code Work](./screenshots/meme.png)
-
-### Key Features# Contributors
+### Key Features
 
 - **Optimized Indexes**: Strategic database indexing for fast queries
-
-- **Data Validation**: Field-level validation with Django validators- Edric Cao (from GO)
-
+- **Data Validation**: Field-level validation with Django validators
 - **Relationships**: Proper foreign key relationships with cascade handling
 - **Calculated Fields**: Dynamic Group A score calculations
 
@@ -130,7 +70,7 @@ Don't forget to add `README.md` which includes guide to run your project locally
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/yourusername/webdev-intern-assignment-3.git
+   git clone https://github.com/hason8193/webdev-intern-assignment-3.git
    cd webdev-intern-assignment-3
    ```
 
@@ -150,67 +90,36 @@ Don't forget to add `README.md` which includes guide to run your project locally
    pip install -r requirements.txt
    ```
 
-4. **Set up environment variables**
-
-   ```bash
-   # Copy and modify .env file
-   cp .env.example .env
-   # Edit .env with your settings
-   ```
-
-5. **Run database migrations**
+4. **Run database migrations**
 
    ```bash
    python manage.py migrate
    ```
 
-6. **Import exam data**
+5. **Import exam data**
 
    ```bash
    python manage.py import_scores --batch-size=1000
    ```
 
-7. **Create superuser (optional)**
+6. **Create superuser (optional)**
 
    ```bash
    python manage.py createsuperuser
    ```
 
-8. **Collect static files**
+7. **Collect static files**
 
    ```bash
    python manage.py collectstatic
    ```
 
-9. **Start development server**
+8. **Start development server**
    ```bash
    python manage.py runserver
    ```
 
 Visit `http://127.0.0.1:8000` to access the application.
-
-### Method 2: Docker Development
-
-1. **Clone and navigate to project**
-
-   ```bash
-   git clone https://github.com/yourusername/webdev-intern-assignment-3.git
-   cd webdev-intern-assignment-3
-   ```
-
-2. **Build and run with Docker**
-
-   ```bash
-   # Development mode (SQLite)
-   docker-compose -f docker-compose.dev.yml up --build
-
-   # Production mode (PostgreSQL + Nginx)
-   docker-compose up --build
-   ```
-
-3. **Access the application**
-   - Development: `http://localhost:8000`
-   - Production: `http://localhost`
 
 ## 📝 Usage Guide
 
@@ -301,37 +210,6 @@ python manage.py createsuperuser
 python manage.py collectstatic
 ```
 
-## 🐳 Docker Commands
-
-### Development
-
-```bash
-# Start development environment
-docker-compose -f docker-compose.dev.yml up
-
-# Rebuild and start
-docker-compose -f docker-compose.dev.yml up --build
-
-# Stop containers
-docker-compose -f docker-compose.dev.yml down
-```
-
-### Production
-
-```bash
-# Start production environment
-docker-compose up -d
-
-# View logs
-docker-compose logs -f
-
-# Scale web workers
-docker-compose up --scale web=3
-
-# Stop all services
-docker-compose down
-```
-
 ## 🌐 Deployment Options
 
 ### 1. Heroku
@@ -387,8 +265,6 @@ gscores/
 ├── static/                 # CSS, JS, images
 ├── dataset/                # CSV data files
 ├── requirements.txt        # Python dependencies
-├── Dockerfile              # Docker configuration
-├── docker-compose.yml      # Docker services
 └── manage.py              # Django management
 ```
 
@@ -514,34 +390,19 @@ python manage.py collectstatic --clear
 # Check STATIC_URL settings
 ```
 
-**4. Docker Build Issues**
-
-```bash
-# Clear Docker cache
-docker system prune -a
-# Rebuild without cache
-docker-compose build --no-cache
-```
-
 ## 📞 Support
 
 ### Getting Help
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/webdev-intern-assignment-3/issues)
+- **Issues**: [GitHub Issues](https://github.com/hason8193/webdev-intern-assignment-3/issues)
 - **Documentation**: [Django Documentation](https://docs.djangoproject.com/)
 - **Community**: [Django Community](https://www.djangoproject.com/community/)
 
 ### Author
 
-**Your Name**
+**Project Developer**
 
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Email: your.email@example.com
-- LinkedIn: [Your Profile](https://linkedin.com/in/yourprofile)
-
-## 📜 License
-
-This project is created for the Golden Owl web developer intern assignment. All rights reserved.
+- GitHub: [@hason8193](https://github.com/hason8193)
 
 ## 🙏 Acknowledgments
 
@@ -580,9 +441,11 @@ This project is created for the Golden Owl web developer intern assignment. All 
 
 **Built with ❤️ for Golden Owl Assignment**
 
-![Your Code Work](./screenshots/meme.png)
+## 👥 Contributors
 
-# Contributors
+- **Edric Cao** (Golden Owl) - Original Assignment Creator
+- **Project Developer** - Implementation and Development
 
-- Edric Cao (from GO) - Original Assignment Creator
-- Your Name - Implementation
+## 📄 License
+
+This project is created for educational purposes as part of the Golden Owl web developer internship assignment.
