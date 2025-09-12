@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+
+{% block title %}About - G-Scores{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h2 class="text-center mb-4">
+                <i class="fas fa-info-circle me-2"></i>About G-Scores
+            </h2>
+            
+            <!-- System Overview -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-graduation-cap me-2"></i>System Overview</h5>
+                </div>
+                <div class="card-body">
+                    <p class="lead">
+                        G-Scores is a comprehensive high school exam results lookup system for the 2024 academic year. 
+                        This web application allows students to quickly access their exam scores and provides 
+                        detailed statistical analysis of performance across all subjects.
+                    </p>
+                    
+                    <div class="row">
+                        <div class="col-md-4 text-center mb-3">
+                            <i class="fas fa-users fa-3x text-primary mb-2"></i>
+                            <h5>{{ total_students|floatformat:0 }}</h5>
+                            <p class="text-muted">Total Students</p>
+                        </div>
+                        <div class="col-md-4 text-center mb-3">
+                            <i class="fas fa-book fa-3x text-success mb-2"></i>
+                            <h5>{{ subjects_count }}</h5>
+                            <p class="text-muted">Subjects Available</p>
+                        </div>
+                        <div class="col-md-4 text-center mb-3">
+                            <i class="fas fa-language fa-3x text-info mb-2"></i>
+                            <h5>{{ languages_count }}</h5>
+                            <p class="text-muted">Foreign Languages</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Features -->
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0"><i class="fas fa-star me-2"></i>Key Features</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-search text-primary me-2"></i>
+                                    <strong>Score Lookup:</strong> Search by registration number
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-chart-bar text-success me-2"></i>
+                                    <strong>Statistics:</strong> Detailed performance analysis
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-trophy text-warning me-2"></i>
+                                    <strong>Top Students:</strong> Group A highest performers
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-mobile-alt text-info me-2"></i>
+                                    <strong>Responsive:</strong> Works on all devices
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-shield-alt text-danger me-2"></i>
+                                    <strong>Secure:</strong> Form validation and CSRF protection
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-chart-line text-purple me-2"></i>
+                                    <strong>Charts:</strong> Interactive data visualization
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Subjects Information -->
+            <div class="card mb-4">
+                <div class="card-header bg-info text-white">
+                    <h5 class="mb-0"><i class="fas fa-book-open me-2"></i>Available Subjects</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-flask me-2"></i>Science Subjects</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-calculator me-2 text-primary"></i>Toán (Mathematics)</li>
+                                <li><i class="fas fa-atom me-2 text-success"></i>Vật Lý (Physics)</li>
+                                <li><i class="fas fa-flask me-2 text-danger"></i>Hóa Học (Chemistry)</li>
+                                <li><i class="fas fa-dna me-2 text-info"></i>Sinh Học (Biology)</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-book me-2"></i>Liberal Arts Subjects</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-book me-2 text-warning"></i>Ngữ Văn (Literature)</li>
+                                <li><i class="fas fa-language me-2 text-primary"></i>Ngoại Ngữ (Foreign Language)</li>
+                                <li><i class="fas fa-landmark me-2 text-secondary"></i>Lịch Sử (History)</li>
+                                <li><i class="fas fa-globe me-2 text-success"></i>Địa Lý (Geography)</li>
+                                <li><i class="fas fa-balance-scale me-2 text-info"></i>GDCD (Civic Education)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Score Levels -->
+            <div class="card mb-4">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0"><i class="fas fa-layer-group me-2"></i>Score Classification</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="badge bg-success me-3 fs-6">Excellent</span>
+                                <span>8.0 - 10.0 points</span>
+                            </div>
+                            <p class="text-muted mb-0">Outstanding performance, demonstrates mastery of subject content.</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="badge bg-info me-3 fs-6">Good</span>
+                                <span>6.0 - 7.9 points</span>
+                            </div>
+                            <p class="text-muted mb-0">Good understanding and application of subject knowledge.</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="badge bg-warning text-dark me-3 fs-6">Average</span>
+                                <span>4.0 - 5.9 points</span>
+                            </div>
+                            <p class="text-muted mb-0">Satisfactory performance, meets basic requirements.</p>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="d-flex align-items-center mb-2">
+                                <span class="badge bg-danger me-3 fs-6">Below Average</span>
+                                <span>0.0 - 3.9 points</span>
+                            </div>
+                            <p class="text-muted mb-0">Needs improvement, below expected performance level.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Group A Information -->
+            <div class="card mb-4">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0"><i class="fas fa-users me-2"></i>Group A Subjects</h5>
+                </div>
+                <div class="card-body">
+                    <p>
+                        <strong>Group A</strong> consists of three core science subjects that are often taken together 
+                        by students pursuing science and engineering programs:
+                    </p>
+                    <div class="row">
+                        <div class="col-md-4 text-center mb-3">
+                            <i class="fas fa-calculator fa-2x text-primary mb-2"></i>
+                            <h6>Mathematics</h6>
+                            <p class="text-muted">Foundation for all sciences</p>
+                        </div>
+                        <div class="col-md-4 text-center mb-3">
+                            <i class="fas fa-atom fa-2x text-success mb-2"></i>
+                            <h6>Physics</h6>
+                            <p class="text-muted">Study of matter and energy</p>
+                        </div>
+                        <div class="col-md-4 text-center mb-3">
+                            <i class="fas fa-flask fa-2x text-danger mb-2"></i>
+                            <h6>Chemistry</h6>
+                            <p class="text-muted">Study of substances and reactions</p>
+                        </div>
+                    </div>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Our system tracks the top performers in Group A subjects and calculates their combined scores 
+                        to identify the highest achieving students in this category.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Technology Stack -->
+            <div class="card mb-4">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0"><i class="fas fa-code me-2"></i>Technology Stack</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-server me-2"></i>Backend</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fab fa-python me-2 text-success"></i>Python 3.12</li>
+                                <li><i class="fas fa-globe me-2 text-primary"></i>Django 4.2</li>
+                                <li><i class="fas fa-database me-2 text-warning"></i>SQLite Database</li>
+                                <li><i class="fas fa-table me-2 text-info"></i>Pandas for CSV processing</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-paint-brush me-2"></i>Frontend</h6>
+                            <ul class="list-unstyled">
+                                <li><i class="fab fa-html5 me-2 text-danger"></i>HTML5</li>
+                                <li><i class="fab fa-css3-alt me-2 text-primary"></i>CSS3 & Bootstrap 5</li>
+                                <li><i class="fab fa-js me-2 text-warning"></i>JavaScript</li>
+                                <li><i class="fas fa-chart-bar me-2 text-success"></i>Chart.js for visualization</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact -->
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0"><i class="fas fa-envelope me-2"></i>About This Project</h5>
+                </div>
+                <div class="card-body text-center">
+                    <p>
+                        This project was developed as part of the Golden Owl web developer intern assignment. 
+                        It demonstrates proficiency in Django development, database design, and modern web technologies.
+                    </p>
+                    <div class="mt-3">
+                        <a href="{% url 'scores:home' %}" class="btn btn-primary me-2">
+                            <i class="fas fa-home me-1"></i>Go Home
+                        </a>
+                        <a href="{% url 'scores:lookup' %}" class="btn btn-outline-primary">
+                            <i class="fas fa-search me-1"></i>Look Up Scores
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

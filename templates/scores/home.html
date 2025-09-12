@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - G-Scores{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h1 class="display-4 fw-bold mb-4">
+                    <i class="fas fa-graduation-cap me-3"></i>G-Scores
+                </h1>
+                <p class="lead mb-4">
+                    High School Exam Results Lookup System - 2024 Edition
+                </p>
+                <p class="mb-4">
+                    Look up your exam scores, view statistics, and see top performers in Group A subjects
+                </p>
+                <a href="{% url 'scores:lookup' %}" class="btn btn-light btn-lg">
+                    <i class="fas fa-search me-2"></i>Check Your Scores
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                        <div class="stats-number">{{ total_students|floatformat:0 }}</div>
+                        <h5 class="card-title">Total Students</h5>
+                        <p class="text-muted">Registered for 2024 exam</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <i class="fas fa-book fa-3x text-success mb-3"></i>
+                        <div class="stats-number">9</div>
+                        <h5 class="card-title">Subjects</h5>
+                        <p class="text-muted">Available for examination</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card stats-card">
+                    <div class="card-body">
+                        <i class="fas fa-chart-line fa-3x text-info mb-3"></i>
+                        <div class="stats-number">4</div>
+                        <h5 class="card-title">Score Levels</h5>
+                        <p class="text-muted">Performance categories</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="text-center mb-5">What You Can Do</h2>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-search fa-3x text-primary mb-3"></i>
+                        <h5 class="card-title">Score Lookup</h5>
+                        <p class="card-text">Enter your registration number to view your exam scores instantly</p>
+                        <a href="{% url 'scores:lookup' %}" class="btn btn-primary">Look Up Scores</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-chart-bar fa-3x text-success mb-3"></i>
+                        <h5 class="card-title">Statistics</h5>
+                        <p class="card-text">View detailed statistics and performance analysis by subjects</p>
+                        <a href="{% url 'scores:statistics' %}" class="btn btn-primary">View Statistics</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-trophy fa-3x text-warning mb-3"></i>
+                        <h5 class="card-title">Top Students</h5>
+                        <p class="card-text">See the top 10 performers in Group A subjects combination</p>
+                        <a href="{% url 'scores:top_group_a' %}" class="btn btn-primary">Top Performers</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <i class="fas fa-info-circle fa-3x text-info mb-3"></i>
+                        <h5 class="card-title">About</h5>
+                        <p class="card-text">Learn more about the system and how to use it effectively</p>
+                        <a href="{% url 'scores:about' %}" class="btn btn-primary">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="fas fa-search me-2"></i>Quick Score Lookup</h5>
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{% url 'scores:lookup' %}">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                {{ form.sbd.label_tag }}
+                                {{ form.sbd }}
+                                <div class="form-text">{{ form.sbd.help_text }}</div>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-search me-2"></i>Look Up Scores
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

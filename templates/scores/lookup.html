@@ -1,0 +1,260 @@
+{% extends 'base.html' %}
+
+{% block title %}Score Lookup - G-Scores{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h2 class="text-center mb-4">
+                <i class="fas fa-search me-2"></i>Score Lookup
+            </h2>
+            
+            <!-- Lookup Form -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Enter Your Registration Number</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="mb-3">
+                                    {{ form.sbd.label_tag }}
+                                    {{ form.sbd }}
+                                    {% if form.sbd.errors %}
+                                        <div class="text-danger mt-1">
+                                            {% for error in form.sbd.errors %}
+                                                <small>{{ error }}</small>
+                                            {% endfor %}
+                                        </div>
+                                    {% endif %}
+                                    <div class="form-text">{{ form.sbd.help_text }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary w-100 mb-3">
+                                    <i class="fas fa-search me-2"></i>Search
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Results -->
+            {% if student %}
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">
+                        <i class="fas fa-user-graduate me-2"></i>
+                        Student Results - SBD: {{ student.sbd }}
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <!-- Student Info -->
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <h6><i class="fas fa-id-card me-2"></i>Student Information</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>Registration Number:</strong> {{ student.sbd }}</li>
+                                {% if student.ma_ngoai_ngu %}
+                                <li><strong>Foreign Language:</strong> {{ student.ma_ngoai_ngu }}</li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            {% if student.has_complete_group_a %}
+                            <h6><i class="fas fa-calculator me-2"></i>Group A Performance</h6>
+                            <ul class="list-unstyled">
+                                <li><strong>Total Score:</strong> {{ student.get_group_a_total|floatformat:2 }}</li>
+                                <li><strong>Average Score:</strong> {{ student.get_group_a_average|floatformat:2 }}</li>
+                            </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <!-- Scores Table -->
+                    <h6><i class="fas fa-list me-2"></i>Subject Scores</h6>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Subject</th>
+                                    <th>Score</th>
+                                    <th>Level</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if student.toan is not None %}
+                                <tr>
+                                    <td><i class="fas fa-calculator me-2"></i>Toán</td>
+                                    <td>{{ student.toan }}</td>
+                                    <td>
+                                        {% if student.toan >= 8 %}
+                                            <span class="badge bg-success">Excellent (≥8)</span>
+                                        {% elif student.toan >= 6 %}
+                                            <span class="badge bg-info">Good (6-8)</span>
+                                        {% elif student.toan >= 4 %}
+                                            <span class="badge bg-warning text-dark">Average (4-6)</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Below Average (<4)</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                
+                                {% if student.ngu_van is not None %}
+                                <tr>
+                                    <td><i class="fas fa-book me-2"></i>Ngữ Văn</td>
+                                    <td>{{ student.ngu_van }}</td>
+                                    <td>
+                                        {% if student.ngu_van >= 8 %}
+                                            <span class="badge bg-success">Excellent (≥8)</span>
+                                        {% elif student.ngu_van >= 6 %}
+                                            <span class="badge bg-info">Good (6-8)</span>
+                                        {% elif student.ngu_van >= 4 %}
+                                            <span class="badge bg-warning text-dark">Average (4-6)</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Below Average (<4)</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                
+                                {% if student.ngoai_ngu is not None %}
+                                <tr>
+                                    <td><i class="fas fa-language me-2"></i>Ngoại Ngữ</td>
+                                    <td>{{ student.ngoai_ngu }}</td>
+                                    <td>
+                                        {% if student.ngoai_ngu >= 8 %}
+                                            <span class="badge bg-success">Excellent (≥8)</span>
+                                        {% elif student.ngoai_ngu >= 6 %}
+                                            <span class="badge bg-info">Good (6-8)</span>
+                                        {% elif student.ngoai_ngu >= 4 %}
+                                            <span class="badge bg-warning text-dark">Average (4-6)</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Below Average (<4)</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                
+                                {% if student.vat_li is not None %}
+                                <tr>
+                                    <td><i class="fas fa-atom me-2"></i>Vật Lý</td>
+                                    <td>{{ student.vat_li }}</td>
+                                    <td>
+                                        {% if student.vat_li >= 8 %}
+                                            <span class="badge bg-success">Excellent (≥8)</span>
+                                        {% elif student.vat_li >= 6 %}
+                                            <span class="badge bg-info">Good (6-8)</span>
+                                        {% elif student.vat_li >= 4 %}
+                                            <span class="badge bg-warning text-dark">Average (4-6)</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Below Average (<4)</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                
+                                {% if student.hoa_hoc is not None %}
+                                <tr>
+                                    <td><i class="fas fa-flask me-2"></i>Hóa Học</td>
+                                    <td>{{ student.hoa_hoc }}</td>
+                                    <td>
+                                        {% if student.hoa_hoc >= 8 %}
+                                            <span class="badge bg-success">Excellent (≥8)</span>
+                                        {% elif student.hoa_hoc >= 6 %}
+                                            <span class="badge bg-info">Good (6-8)</span>
+                                        {% elif student.hoa_hoc >= 4 %}
+                                            <span class="badge bg-warning text-dark">Average (4-6)</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Below Average (<4)</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                
+                                {% if student.sinh_hoc is not None %}
+                                <tr>
+                                    <td><i class="fas fa-dna me-2"></i>Sinh Học</td>
+                                    <td>{{ student.sinh_hoc }}</td>
+                                    <td>
+                                        {% if student.sinh_hoc >= 8 %}
+                                            <span class="badge bg-success">Excellent (≥8)</span>
+                                        {% elif student.sinh_hoc >= 6 %}
+                                            <span class="badge bg-info">Good (6-8)</span>
+                                        {% elif student.sinh_hoc >= 4 %}
+                                            <span class="badge bg-warning text-dark">Average (4-6)</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Below Average (<4)</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                
+                                {% if student.lich_su is not None %}
+                                <tr>
+                                    <td><i class="fas fa-landmark me-2"></i>Lịch Sử</td>
+                                    <td>{{ student.lich_su }}</td>
+                                    <td>
+                                        {% if student.lich_su >= 8 %}
+                                            <span class="badge bg-success">Excellent (≥8)</span>
+                                        {% elif student.lich_su >= 6 %}
+                                            <span class="badge bg-info">Good (6-8)</span>
+                                        {% elif student.lich_su >= 4 %}
+                                            <span class="badge bg-warning text-dark">Average (4-6)</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Below Average (<4)</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                
+                                {% if student.dia_li is not None %}
+                                <tr>
+                                    <td><i class="fas fa-globe me-2"></i>Địa Lý</td>
+                                    <td>{{ student.dia_li }}</td>
+                                    <td>
+                                        {% if student.dia_li >= 8 %}
+                                            <span class="badge bg-success">Excellent (≥8)</span>
+                                        {% elif student.dia_li >= 6 %}
+                                            <span class="badge bg-info">Good (6-8)</span>
+                                        {% elif student.dia_li >= 4 %}
+                                            <span class="badge bg-warning text-dark">Average (4-6)</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Below Average (<4)</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                
+                                {% if student.gdcd is not None %}
+                                <tr>
+                                    <td><i class="fas fa-balance-scale me-2"></i>GDCD</td>
+                                    <td>{{ student.gdcd }}</td>
+                                    <td>
+                                        {% if student.gdcd >= 8 %}
+                                            <span class="badge bg-success">Excellent (≥8)</span>
+                                        {% elif student.gdcd >= 6 %}
+                                            <span class="badge bg-info">Good (6-8)</span>
+                                        {% elif student.gdcd >= 4 %}
+                                            <span class="badge bg-warning text-dark">Average (4-6)</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Below Average (<4)</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

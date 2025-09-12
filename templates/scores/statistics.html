@@ -1,0 +1,238 @@
+{% extends 'base.html' %}
+
+{% block title %}Statistics - G-Scores{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="text-center mb-4">
+        <i class="fas fa-chart-bar me-2"></i>Score Statistics & Reports
+    </h2>
+    
+    <!-- Chart Section -->
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="fas fa-chart-column me-2"></i>Score Distribution by Subject</h5>
+        </div>
+        <div class="card-body">
+            <div class="chart-container">
+                <canvas id="statisticsChart"></canvas>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Statistics Table -->
+    <div class="card">
+        <div class="card-header bg-secondary text-white">
+            <h5 class="mb-0"><i class="fas fa-table me-2"></i>Detailed Statistics</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Subject</th>
+                            <th class="text-center">
+                                <i class="fas fa-star text-warning me-1"></i>
+                                Excellent (≥8)
+                            </th>
+                            <th class="text-center">
+                                <i class="fas fa-thumbs-up text-info me-1"></i>
+                                Good (6-8)
+                            </th>
+                            <th class="text-center">
+                                <i class="fas fa-minus text-warning me-1"></i>
+                                Average (4-6)
+                            </th>
+                            <th class="text-center">
+                                <i class="fas fa-thumbs-down text-danger me-1"></i>
+                                Below Average (<4)
+                            </th>
+                            <th class="text-center">Total Students</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for subject, stats in statistics.items %}
+                        <tr>
+                            <td>
+                                <strong>
+                                    {% if subject == 'toan' %}
+                                        <i class="fas fa-calculator me-2"></i>
+                                    {% elif subject == 'ngu_van' %}
+                                        <i class="fas fa-book me-2"></i>
+                                    {% elif subject == 'ngoai_ngu' %}
+                                        <i class="fas fa-language me-2"></i>
+                                    {% elif subject == 'vat_li' %}
+                                        <i class="fas fa-atom me-2"></i>
+                                    {% elif subject == 'hoa_hoc' %}
+                                        <i class="fas fa-flask me-2"></i>
+                                    {% elif subject == 'sinh_hoc' %}
+                                        <i class="fas fa-dna me-2"></i>
+                                    {% elif subject == 'lich_su' %}
+                                        <i class="fas fa-landmark me-2"></i>
+                                    {% elif subject == 'dia_li' %}
+                                        <i class="fas fa-globe me-2"></i>
+                                    {% elif subject == 'gdcd' %}
+                                        <i class="fas fa-balance-scale me-2"></i>
+                                    {% endif %}
+                                    {{ stats.name }}
+                                </strong>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-success fs-6">{{ stats.excellent|floatformat:0 }}</span>
+                                <br>
+                                <small class="text-muted">
+                                    ({{ stats.excellent_pct|floatformat:1 }}%)
+                                </small>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-info fs-6">{{ stats.good|floatformat:0 }}</span>
+                                <br>
+                                <small class="text-muted">
+                                    ({{ stats.good_pct|floatformat:1 }}%)
+                                </small>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-warning text-dark fs-6">{{ stats.average|floatformat:0 }}</span>
+                                <br>
+                                <small class="text-muted">
+                                    ({{ stats.average_pct|floatformat:1 }}%)
+                                </small>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-danger fs-6">{{ stats.below|floatformat:0 }}</span>
+                                <br>
+                                <small class="text-muted">
+                                    ({{ stats.below_pct|floatformat:1 }}%)
+                                </small>
+                            </td>
+                            <td class="text-center">
+                                <strong>{{ stats.total|floatformat:0 }}</strong>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Legend -->
+    <div class="row mt-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Score Level Legend</h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 mb-2">
+                            <span class="badge bg-success me-2">Excellent</span>
+                            <span>8.0 - 10.0 points</span>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <span class="badge bg-info me-2">Good</span>
+                            <span>6.0 - 7.9 points</span>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <span class="badge bg-warning text-dark me-2">Average</span>
+                            <span>4.0 - 5.9 points</span>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <span class="badge bg-danger me-2">Below Average</span>
+                            <span>0.0 - 3.9 points</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Fetch statistics data for chart
+    fetch('{% url "scores:statistics_api" %}')
+        .then(response => response.json())
+        .then(data => {
+            const ctx = document.getElementById('statisticsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: data.labels,
+                    datasets: [
+                        {
+                            label: 'Excellent (≥8)',
+                            data: data.excellent,
+                            backgroundColor: '#28a745',
+                            borderColor: '#1e7e34',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Good (6-8)',
+                            data: data.good,
+                            backgroundColor: '#17a2b8',
+                            borderColor: '#117a8b',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Average (4-6)',
+                            data: data.average,
+                            backgroundColor: '#ffc107',
+                            borderColor: '#d39e00',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Below Average (<4)',
+                            data: data.below,
+                            backgroundColor: '#dc3545',
+                            borderColor: '#bd2130',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Score Distribution by Subject',
+                            font: {
+                                size: 16
+                            }
+                        },
+                        legend: {
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Subjects'
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Students'
+                            }
+                        }
+                    },
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    }
+                }
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching statistics data:', error);
+        });
+});
+</script>
+{% endblock %}
