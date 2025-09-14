@@ -284,43 +284,6 @@ python manage.py createsuperuser
 python manage.py collectstatic
 ```
 
-## 🌐 Deployment Options
-
-### 1. Heroku
-
-```bash
-# Install Heroku CLI and login
-heroku create your-app-name
-heroku addons:create heroku-postgresql:hobby-dev
-git push heroku main
-heroku run python manage.py migrate
-heroku run python manage.py import_scores
-```
-
-### 2. Vercel
-
-```bash
-# Install Vercel CLI
-npm i -g vercel
-vercel --prod
-```
-
-### 3. Fly.io
-
-```bash
-# Install flyctl
-flyctl launch
-flyctl deploy
-```
-
-### 4. Railway
-
-```bash
-# Connect GitHub repository to Railway
-# Add environment variables
-# Deploy automatically on push
-```
-
 ## 🛠️ Development
 
 ### Project Structure
