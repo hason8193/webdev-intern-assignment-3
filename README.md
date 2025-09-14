@@ -30,7 +30,7 @@ A comprehensive web application for managing and displaying high school exam res
 ### Backend
 
 - **Framework**: Django 4.2 (Python 3.12)
-- **Database**: SQLite (development) / PostgreSQL (production)
+- **Database**: MySQL 8.0+ (production) / SQLite (development fallback)
 - **ORM**: Django ORM with optimized queries
 - **Data Processing**: Pandas for CSV import
 - **Web Server**: Gunicorn (production)
@@ -66,6 +66,12 @@ A comprehensive web application for managing and displaying high school exam res
 ## 🚀 Installation & Setup
 
 ### Method 1: Local Development
+
+**Prerequisites:**
+
+- Python 3.12+
+- MySQL 8.0+ Server
+- Git
 
 1. **Clone the repository**
 
@@ -120,6 +126,74 @@ A comprehensive web application for managing and displaying high school exam res
    ```
 
 Visit `http://127.0.0.1:8000` to access the application.
+
+## 🗄️ MySQL Database Setup
+
+This project requires **MySQL 8.0+** to store student exam data. Follow these steps to create the database and connect your project.
+
+### Step 1: Install MySQL Server
+
+**Download and install MySQL from:** https://dev.mysql.com/downloads/mysql/
+
+**Or use package managers:**
+
+- **Windows:** `choco install mysql` (with Chocolatey)
+- **macOS:** `brew install mysql` (with Homebrew)
+- **Ubuntu:** `sudo apt install mysql-server`
+
+### Step 2: Start MySQL Service
+
+- **Windows:** Open Services → Start "MySQL80" service
+- **macOS/Linux:** `sudo systemctl start mysql` or `brew services start mysql`
+
+### Step 3: Create the Database
+
+1. **Open MySQL Command Line:**
+   ```bash
+   mysql -u root -p
+   ```
+2. **Create the gscores_db database:**
+   ```sql
+   CREATE DATABASE gscores_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+   SHOW DATABASES;
+   EXIT;
+   ```
+
+### Step 4: Update Django Settings
+
+Make sure `gscores/settings.py` has the correct database configuration:
+
+```python
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'gscores_db',
+        'USER': 'root',
+        'PASSWORD': 'your_mysql_password',  # Change this!
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
+```
+
+**⚠️ Important:** Replace `'your_mysql_password'` with your actual MySQL root password.
+
+### Step 5: Test the Connection
+
+```bash
+# Test database connection
+python manage.py dbshell
+
+# If successful, you'll see:
+# mysql>
+# Type 'exit' to quit
+```
+
+### Troubleshooting
+
+- **"Access denied":** Check your MySQL password in settings.py
+- **"Can't connect":** Ensure MySQL service is running
+- **"Unknown database":** Re-run the CREATE DATABASE command
 
 ## 📝 Usage Guide
 
@@ -376,9 +450,18 @@ ls -la dataset/diem_thi_thpt_2024.csv
 **2. Database Connection Error**
 
 ```bash
-# Check database settings
+# For MySQL: Check connection
 python manage.py dbshell
-# Verify migrations
+# Check MySQL service status
+# Windows: services.msc -> MySQL
+# Linux/Mac: sudo systemctl status mysql
+
+# Verify database exists
+mysql -u root -p
+SHOW DATABASES;
+USE gscores_db;
+
+# Check Django database settings
 python manage.py showmigrations
 ```
 
