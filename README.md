@@ -14,7 +14,13 @@ A comprehensive web application for managing and displaying high school exam res
 - **CSV Data Import**: Automated data processing and import
 - **Responsive Design**: Optimized for all devices
 
-## 🚀 Live Demo
+## � Screenshots
+
+### Homepage
+
+![Homepage](screenshots/homepage.png)
+
+## �🚀 Live Demo
 
 **Production**: [https://webdev-intern-assignment-3-production.up.railway.app](https://webdev-intern-assignment-3-production.up.railway.app)
 
@@ -30,17 +36,20 @@ A comprehensive web application for managing and displaying high school exam res
 ### Local Development
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/hason8193/webdev-intern-assignment-3.git
    cd webdev-intern-assignment-3
    ```
 
 2. **Install dependencies**
+
    ```bash
    pip install -r requirements.txt
    ```
 
 3. **Run migrations and import data**
+
    ```bash
    python manage.py migrate
    python manage.py import_scores
@@ -62,11 +71,13 @@ A comprehensive web application for managing and displaying high school exam res
 ### Railway Deployment
 
 1. **Connect to Railway**
+
    - Fork this repository
    - Connect your GitHub repo to [Railway](https://railway.app)
    - Railway will auto-detect the Dockerfile
 
 2. **Add Environment Variables**
+
    ```env
    SECRET_KEY=your-secret-key-here
    DEBUG=False
@@ -74,6 +85,7 @@ A comprehensive web application for managing and displaying high school exam res
    ```
 
 3. **Add MySQL Database**
+
    - Add MySQL service in Railway dashboard
    - Railway will auto-provide `DATABASE_URL`
 
@@ -84,6 +96,7 @@ A comprehensive web application for managing and displaying high school exam res
 ## 📊 Database Schema
 
 ### Models
+
 - **Student**: Personal information and registration details
 - **Subject**: Subject definitions (Math, Physics, Chemistry, etc.)
 - **ForeignLanguage**: Language options (English, Japanese, etc.)
@@ -105,12 +118,12 @@ python manage.py collectstatic
 
 ## 📈 Score Classification
 
-| Level | Score Range | Description |
-|-------|-------------|-------------|
-| Excellent | 8.0 - 10.0 | Outstanding performance |
-| Good | 6.0 - 7.9 | Good understanding |
-| Average | 4.0 - 5.9 | Satisfactory performance |
-| Below Average | 0.0 - 3.9 | Needs improvement |
+| Level         | Score Range | Description              |
+| ------------- | ----------- | ------------------------ |
+| Excellent     | 8.0 - 10.0  | Outstanding performance  |
+| Good          | 6.0 - 7.9   | Good understanding       |
+| Average       | 4.0 - 5.9   | Satisfactory performance |
+| Below Average | 0.0 - 3.9   | Needs improvement        |
 
 ## 🏆 Group A Ranking
 
@@ -133,6 +146,7 @@ gscores/
 ## 🌟 Admin Interface
 
 Access the admin panel at `/admin/` with superuser credentials to manage:
+
 - Students and their information
 - Subjects and scoring
 - Foreign language options
