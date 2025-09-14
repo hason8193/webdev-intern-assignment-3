@@ -78,12 +78,12 @@ WSGI_APPLICATION = 'gscores.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# Use Railway's DATABASE_URL if available, otherwise fallback to individual settings
+# Use Railway's DATABASE_URL if available, otherwise fallback to individual settings or SQLite
 if config('DATABASE_URL', default=None):
     DATABASES = {
         'default': dj_database_url.parse(config('DATABASE_URL'))
     }
-else:
+elif config('DATABASE_HOST', default=None):
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
@@ -95,6 +95,14 @@ else:
             'OPTIONS': {
                 'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
             },
+        }
+    }
+else:
+    # Fallback to SQLite for development or when no database is configured
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
 
