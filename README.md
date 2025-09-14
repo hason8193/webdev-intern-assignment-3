@@ -2,403 +2,149 @@
 
 [![Django](https://img.shields.io/badge/Django-4.2-green.svg)](https://www.djangoproject.com/)
 [![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
-[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple.svg)](https://getbootstrap.com/)
-[![Chart.js](https://img.shields.io/badge/Chart.js-4.0-orange.svg)](https://www.chartjs.org/)
+[![Railway](https://img.shields.io/badge/Deployed%20on-Railway-blueviolet.svg)](https://railway.app)
 
-A comprehensive web application for managing and displaying high school exam results for the 2024 academic year. This project demonstrates proficiency in Django development, database design, and modern web technologies.
+A comprehensive web application for managing and displaying high school exam results for the 2024 academic year.
 
 ## ✨ Features
 
-### Core Features ✅
+- **Score Lookup**: Search student scores by registration number (SBD)
+- **Statistics Dashboard**: Interactive charts showing score distribution
+- **Top 10 Rankings**: Best performers in Math, Physics, Chemistry combination
+- **CSV Data Import**: Automated data processing and import
+- **Responsive Design**: Optimized for all devices
 
-- [x] **CSV Data Import**: Automated conversion of raw CSV data into database with proper structure
-- [x] **Score Lookup**: Search student scores by registration number (SBD)
-- [x] **Score Reports**: 4-level classification system (≥8, 6-8, 4-6, <4 points)
-- [x] **Statistics Dashboard**: Visual charts showing score distribution by subjects
-- [x] **Top 10 Group A**: Ranking of best performers in Math, Physics, Chemistry combination
+## 🚀 Live Demo
 
-### Additional Features ✅
+**Production**: [https://webdev-intern-assignment-3-production.up.railway.app](https://webdev-intern-assignment-3-production.up.railway.app)
 
-- [x] **Responsive Design**: Optimized for desktop, tablet, and mobile devices
-- [x] **Interactive Charts**: Chart.js integration for data visualization
-- [x] **Modern UI**: Bootstrap 5 with custom styling and Google Fonts (Rubik)
-- [x] **Form Validation**: Comprehensive client and server-side validation
-- [x] **Security Features**: CSRF protection, input sanitization, secure headers
+## 🛠️ Tech Stack
 
-## 🏗️ Technical Architecture
+- **Backend**: Django 4.2, MySQL
+- **Frontend**: Bootstrap 5, Chart.js
+- **Deployment**: Docker, Railway
+- **Data**: Pandas for CSV processing
 
-### Backend
+## 📦 Quick Start
 
-- **Framework**: Django 4.2 (Python 3.12)
-- **Database**: MySQL 8.0+ (production) / SQLite (development fallback)
-- **ORM**: Django ORM with optimized queries
-- **Data Processing**: Pandas for CSV import
-- **Web Server**: Gunicorn (production)
-
-### Frontend
-
-- **Framework**: Django Templates with Bootstrap 5
-- **Styling**: Custom CSS with Bootstrap components
-- **JavaScript**: Vanilla JS with Chart.js for visualizations
-- **Fonts**: Google Fonts (Rubik family)
-- **Icons**: Font Awesome 6
-
-### DevOps
-
-- **Static Files**: Whitenoise for Django static file serving
-
-## 📊 Database Schema
-
-### Models Overview
-
-- **Student**: Core model storing exam results for each student
-- **Subject**: Subject definitions with OOP-based classification methods
-- **ForeignLanguage**: Foreign language codes and names
-- **ScoreStatistics**: Cached statistics for performance optimization
-
-### Key Features
-
-- **Optimized Indexes**: Strategic database indexing for fast queries
-- **Data Validation**: Field-level validation with Django validators
-- **Relationships**: Proper foreign key relationships with cascade handling
-- **Calculated Fields**: Dynamic Group A score calculations
-
-## 🚀 Installation & Setup
-
-### Method 1: Local Development
-
-**Prerequisites:**
-
-- Python 3.12+
-- MySQL 8.0+ Server
-- Git
+### Local Development
 
 1. **Clone the repository**
-
    ```bash
    git clone https://github.com/hason8193/webdev-intern-assignment-3.git
    cd webdev-intern-assignment-3
    ```
 
-2. **Create and activate virtual environment**
-
-   ```bash
-   python -m venv venv
-   # Windows
-   venv\Scripts\activate
-   # macOS/Linux
-   source venv/bin/activate
-   ```
-
-3. **Install dependencies**
-
+2. **Install dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-4. **Run database migrations**
-
+3. **Run migrations and import data**
    ```bash
    python manage.py migrate
+   python manage.py import_scores
    ```
 
-5. **Import exam data**
-
-   ```bash
-   python manage.py import_scores --batch-size=1000
-   ```
-
-6. **Create superuser (optional)**
-
-   ```bash
-   python manage.py createsuperuser
-   ```
-
-7. **Collect static files**
-
-   ```bash
-   python manage.py collectstatic
-   ```
-
-8. **Start development server**
+4. **Start development server**
    ```bash
    python manage.py runserver
    ```
 
-Visit `http://127.0.0.1:8000` to access the application.
+### Docker Deployment
 
-## 🗄️ MySQL Database Setup
-
-This project requires **MySQL 8.0+** to store student exam data. Follow these steps to create the database and connect your project.
-
-### Step 1: Install MySQL Server
-
-**Download and install MySQL from:** https://dev.mysql.com/downloads/mysql/
-
-**Or use package managers:**
-
-- **Windows:** `choco install mysql` (with Chocolatey)
-- **macOS:** `brew install mysql` (with Homebrew)
-- **Ubuntu:** `sudo apt install mysql-server`
-
-### Step 2: Start MySQL Service
-
-- **Windows:** Open Services → Start "MySQL80" service
-- **macOS/Linux:** `sudo systemctl start mysql` or `brew services start mysql`
-
-### Step 3: Create the Database
-
-1. **Open MySQL Command Line:**
+1. **Build and run with Docker**
    ```bash
-   mysql -u root -p
-   ```
-2. **Create the gscores_db database:**
-   ```sql
-   CREATE DATABASE gscores_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-   SHOW DATABASES;
-   EXIT;
+   docker build -t gscores .
+   docker run -p 8000:8000 gscores
    ```
 
-### Step 4: Update Django Settings
+### Railway Deployment
 
-Make sure `gscores/settings.py` has the correct database configuration:
+1. **Connect to Railway**
+   - Fork this repository
+   - Connect your GitHub repo to [Railway](https://railway.app)
+   - Railway will auto-detect the Dockerfile
 
-```python
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gscores_db',
-        'USER': 'root',
-        'PASSWORD': 'your_mysql_password',  # Change this!
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
-```
+2. **Add Environment Variables**
+   ```env
+   SECRET_KEY=your-secret-key-here
+   DEBUG=False
+   ALLOWED_HOSTS=your-domain.railway.app,healthcheck.railway.app
+   ```
 
-**⚠️ Important:** Replace `'your_mysql_password'` with your actual MySQL root password.
+3. **Add MySQL Database**
+   - Add MySQL service in Railway dashboard
+   - Railway will auto-provide `DATABASE_URL`
 
-### Step 5: Test the Connection
+4. **Deploy**
+   - Push changes to trigger deployment
+   - Your app will be live with database connected
 
-```bash
-# Test database connection
-python manage.py dbshell
+## 📊 Database Schema
 
-# If successful, you'll see:
-# mysql>
-# Type 'exit' to quit
-```
-
-### Troubleshooting
-
-- **"Access denied":** Check your MySQL password in settings.py
-- **"Can't connect":** Ensure MySQL service is running
-- **"Unknown database":** Re-run the CREATE DATABASE command
-
-## 📝 Usage Guide
-
-### 1. Score Lookup
-
-- Navigate to **Score Lookup** page
-- Enter 8-digit registration number (SBD)
-- View detailed score breakdown and performance levels
-- See Group A combination scores (if applicable)
-
-### 2. Statistics Dashboard
-
-- Visit **Statistics** page for comprehensive analysis
-- Interactive charts showing score distribution
-- Subject-wise performance breakdown
-- 4-level classification statistics
-
-### 3. Top Performers
-
-- Check **Top Students** page for Group A rankings
-- View top 10 students in Math + Physics + Chemistry
-- See detailed score breakdown and rankings
-
-### 4. Admin Interface
-
-- Access `/admin/` for data management
-- Login with superuser credentials
-- Manage students, subjects, and foreign languages
-
-## 🎯 Score Classification System
-
-| Level             | Score Range | Description              | Badge Color |
-| ----------------- | ----------- | ------------------------ | ----------- |
-| **Excellent**     | 8.0 - 10.0  | Outstanding performance  | Green       |
-| **Good**          | 6.0 - 7.9   | Good understanding       | Blue        |
-| **Average**       | 4.0 - 5.9   | Satisfactory performance | Yellow      |
-| **Below Average** | 0.0 - 3.9   | Needs improvement        | Red         |
-
-## 📚 Subject Information
-
-### All Subjects
-
-- **Toán** (Mathematics) - Group A ⭐
-- **Ngữ Văn** (Literature)
-- **Ngoại Ngữ** (Foreign Language)
-- **Vật Lý** (Physics) - Group A ⭐
-- **Hóa Học** (Chemistry) - Group A ⭐
-- **Sinh Học** (Biology)
-- **Lịch Sử** (History)
-- **Địa Lý** (Geography)
-- **GDCD** (Civic Education)
-
-### Group A Combination
-
-Students taking **Mathematics**, **Physics**, and **Chemistry** are classified as Group A and ranked by their combined score in these subjects.
+### Models
+- **Student**: Personal information and registration details
+- **Subject**: Subject definitions (Math, Physics, Chemistry, etc.)
+- **ForeignLanguage**: Language options (English, Japanese, etc.)
+- **Score**: Individual subject scores linked to students
 
 ## 🔧 Management Commands
 
-### Import Data
-
 ```bash
-# Import with default settings
+# Import student data from CSV
 python manage.py import_scores
 
-# Import with custom batch size
-python manage.py import_scores --batch-size=500
-
-# Clear existing data and import fresh
-python manage.py import_scores --clear
-
-# Import from custom file
-python manage.py import_scores --file=path/to/your/file.csv
-```
-
-### Database Operations
-
-```bash
-# Create new migrations
-python manage.py makemigrations
-
-# Apply migrations
-python manage.py migrate
-
-# Create superuser
+# Create admin user
 python manage.py createsuperuser
 
-# Collect static files
+# Database operations
+python manage.py migrate
 python manage.py collectstatic
 ```
 
-## 🛠️ Development
+## 📈 Score Classification
 
-### Project Structure
+| Level | Score Range | Description |
+|-------|-------------|-------------|
+| Excellent | 8.0 - 10.0 | Outstanding performance |
+| Good | 6.0 - 7.9 | Good understanding |
+| Average | 4.0 - 5.9 | Satisfactory performance |
+| Below Average | 0.0 - 3.9 | Needs improvement |
+
+## 🏆 Group A Ranking
+
+Students taking **Mathematics**, **Physics**, and **Chemistry** are ranked by their combined score in these subjects.
+
+## 📂 Project Structure
 
 ```
 gscores/
-├── gscores/                 # Django project settings
-├── scores/                  # Main application
-│   ├── models.py           # Database models
-│   ├── views.py            # View logic
-│   ├── forms.py            # Form definitions
-│   ├── urls.py             # URL routing
-│   ├── admin.py            # Admin interface
-│   └── management/         # Custom commands
-├── templates/              # HTML templates
-├── static/                 # CSS, JS, images
-├── dataset/                # CSV data files
-├── requirements.txt        # Python dependencies
-└── manage.py              # Django management
+├── gscores/           # Django project settings
+├── scores/            # Main application
+├── static/            # CSS, JS, images
+├── templates/         # HTML templates
+├── dataset/           # CSV data files
+├── Dockerfile         # Docker configuration
+├── requirements.txt   # Python dependencies
+└── railway.toml       # Railway deployment config
 ```
 
-### Key Files
+## 🌟 Admin Interface
 
-- `scores/models.py`: Database schema and business logic
-- `scores/views.py`: Request handling and data processing
-- `scores/management/commands/import_scores.py`: CSV import logic
-- `templates/`: HTML templates with Bootstrap styling
-- `static/`: CSS and JavaScript assets
+Access the admin panel at `/admin/` with superuser credentials to manage:
+- Students and their information
+- Subjects and scoring
+- Foreign language options
+- Data import/export
 
-### Contributing
+## 📝 License
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+This project is for educational purposes and demonstrates Django web development skills.
 
-## 📊 Performance Considerations
+---
 
-### Database Optimization
-
-- **Indexes**: Strategic indexing on SBD and Group A fields
-- **Bulk Operations**: Efficient batch processing for data import
-- **Query Optimization**: Select_related and prefetch_related usage
-- **Caching**: Statistics caching for improved performance
-
-### Frontend Optimization
-
-- **Static Files**: Compressed and cached assets
-- **Responsive Images**: Optimized image loading
-- **Lazy Loading**: Chart.js loaded on demand
-- **Minification**: CSS and JS minification in production
-
-## 🔒 Security Features
-
-### Django Security
-
-- **CSRF Protection**: All forms protected against CSRF attacks
-- **Input Validation**: Server-side validation on all inputs
-- **SQL Injection Prevention**: ORM-based queries
-- **XSS Protection**: Template auto-escaping enabled
-
-### Production Security
-
-- **Secure Headers**: Security headers via Nginx
-- **HTTPS Ready**: SSL/TLS configuration support
-- **Environment Variables**: Sensitive data in environment
-- **Debug Mode**: Disabled in production
-
-## 🧪 Testing
-
-### Run Tests
-
-```bash
-# Run all tests
-python manage.py test
-
-# Run specific app tests
-python manage.py test scores
-
-# Run with coverage
-coverage run manage.py test
-coverage report
-```
-
-### Test Data
-
-```bash
-# Create test data
-python manage.py shell
->>> from scores.models import Student
->>> Student.objects.count()  # Check data import
-```
-
-## 📄 API Documentation
-
-### Statistics API Endpoint
-
-```
-GET /api/statistics/
-```
-
-**Response Format:**
-
-```json
-{
-  "labels": ["Toán", "Ngữ Văn", ...],
-  "excellent": [1250, 2100, ...],
-  "good": [2800, 3200, ...],
-  "average": [1900, 1800, ...],
-  "below": [850, 720, ...]
-}
-```
-
-## 🐛 Troubleshooting
+**Deployed on Railway** | [Live Demo](https://webdev-intern-assignment-3-production.up.railway.app)
 
 ### Common Issues
 
