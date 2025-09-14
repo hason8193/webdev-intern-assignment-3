@@ -12,11 +12,11 @@ WORKDIR /app
 # Install system dependencies
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        pkg-config \
-        default-libmysqlclient-dev \
-        build-essential \
-        curl \
-        wget \
+    pkg-config \
+    default-libmysqlclient-dev \
+    build-essential \
+    curl \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
